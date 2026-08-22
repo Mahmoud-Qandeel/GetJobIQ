@@ -1,89 +1,151 @@
 # GetJobIQ
 
-**An AI-native job application framework that runs entirely on your own machine.**
+Evaluate job postings against your profile, draft a tailored CV and cover letter, track every application, and prep for interviews—all as slash commands that operate on plain files in your project.
 
-GetJobIQ turns any AI coding agent (Claude Code, and — via the portable
-Agent Skills format — Codex, Cursor, Gemini CLI, Antigravity) into a career
-assistant: it evaluates job postings against your real profile, tailors your
-CV and cover letter, tracks every application, and preps you for interviews.
-No servers, no third-party dashboards, no uploading your resume anywhere —
-everything lives in this repo, on your disk, under your control.
-
-## Why GetJobIQ
-
-Most "AI job application" tools either auto-apply to hundreds of jobs
-indiscriminately, or lock your data into a SaaS dashboard. GetJobIQ does
-neither:
-
-- **You stay in the loop.** Every application is evaluated, drafted, and
-  reviewed with you — nothing is auto-submitted.
-- **Nothing is fabricated.** Every claim in a generated CV or cover letter
-  is grounded in your own verified profile. A Factual Grounding Audit
-  strips anything that isn't.
-- **Portable by design.** The candidate data and methodology live in plain
-  markdown, readable by any AI agent — not locked to one vendor.
-- **Honest about gaps.** Requirements you don't meet are acknowledged, not
-  hidden or keyword-stuffed.
+**This version is project-scoped:** you copy the entire folder structure into your project, and paths are fixed relative to that root. A portable, agent-wide skill mode is planned for later.
 
 ## What it does
 
-| Command | What it does |
+| Command | Purpose |
 |---|---|
-| `/setup` | Builds your candidate profile from your documents or a guided interview |
-| `/scrape` | Searches job portals and company career pages for matching roles |
-| `/rank` | Scores and ranks discovered postings against your profile |
-| `/apply <posting>` | Evaluates fit, drafts a tailored CV + cover letter, records the application |
-| `/interview <company>` | Builds a stage-specific interview prep pack |
-| `/outcome <company>` | Records the result and keeps your tracker current |
-| `/add-portal`, `/add-template` | Extend the framework with new job boards or CV/letter designs |
-| `/gmail-sync`, `/notion-sync`, `/html-report` | Optional integrations to keep your search organized |
+| `/setup` | Build your candidate profile from your documents or a guided interview |
+| `/scrape` | Search job portals and company career pages for matching roles |
+| `/rank` | Score and rank discovered postings against your fit framework |
+| `/apply <posting>` | Evaluate the fit, draft a tailored CV + cover letter, and record the application |
+| `/interview <company>` | Build a stage-specific interview prep pack from this application's archive |
+| `/outcome <company>` | Record an interview result or final decision and update your tracker |
+| `/add-portal` | Register a new job portal for `/scrape` to search |
+| `/add-template` | Register a custom CV or cover letter template (LaTeX, Typst, or other) |
+| `/expand` | Discover competencies hidden in your documents and online presence |
+| `/reset` | Clear parts of your profile to start fresh with `/setup` |
+| `/gmail-sync` | Scan Gmail for status signals on your applications and sync them to the tracker |
+| `/notion-sync` | Publish your job search to a Notion database (read-only, synced from local files) |
+| `/html-report` | Generate a self-contained dashboard from your tracker and application archive |
+| `/upskill` | Analyze your tracked jobs to identify skill gaps and generate a learning plan |
 
-## Repository structure
+## Installation
+
+1. **Copy these folders to your project root**, preserving the layout:
+   - `01-FRAMEWORK/` — all skills and commands
+   - `02-Documents/` — your CV, LinkedIn export, reference letters, and application archive
+   - `03-JOB-SEARCH/` — search strategy queries (the copy under `01-FRAMEWORK/.claude/skills/job-scraper/` is the one commands actually use; this folder holds an additional reference copy)
+   - `04-APPLICATIONS/` — your CV templates, cover letter templates, and tailored application drafts
+
+2. **Open your project in Claude Code** (or another AI agent that supports `.claude/` skills and commands).
+
+3. **Run `/setup`** to build your candidate profile:
+   - Drop your CV, LinkedIn export, diplomas, and reference letters into `02-Documents/`
+   - Or paste a single CV if you don't have documents
+   - Or answer the guided interview questions
+
+   `/setup` populates all the profile files automatically—nothing needs to be hand-edited first.
+
+4. **Paste a job posting and run `/apply`** to see the workflow end to end.
+
+## File and folder structure
 
 ```
-.claude/
-  skills/job-application-assistant/   # Evaluation, CV/letter rules, interview prep
-  skills/job-scraper/                 # Search strategy, portal orchestration
-  commands/                           # Slash commands (/apply, /rank, /outcome, ...)
-.agents/skills/                       # Portable job-portal search CLIs (multi-agent)
-cv/, cover_letters/                   # LaTeX templates + your tailored output
-documents/                            # Source materials + per-application archive
-CLAUDE.md                             # Your candidate profile (populated by /setup)
-AGENTS.md                             # Cross-agent compatibility pointer
+01-FRAMEWORK/
+├── CLAUDE.md                     # Your candidate profile (identity, education, experience, skills)
+├── README.md                     # Framework documentation
+├── SETUP.md, SECURITY.md, etc.  # Reference guides
+├── .claude/
+│   ├── skills/
+│   │   ├── job-application-assistant/  # Evaluation framework, CV/letter rules, interview prep
+│   │   │   ├── 01-candidate-profile.md
+│   │   │   ├── 02-behavioral-profile.md
+│   │   │   ├── 03-writing-style.md
+│   │   │   ├── 04-job-evaluation.md
+│   │   │   ├── 05-cv-templates.md       # Stock LaTeX CV structure
+│   │   │   ├── 06-cover-letter-templates.md  # Stock LaTeX cover letter
+│   │   │   ├── 07-interview-prep.md
+│   │   │   ├── 08-application-forms.md
+│   │   │   └── 09-web-research.md
+│   │   ├── job-scraper/                # Portal orchestration and search strategy
+│   │   │   └── search-queries.md       # Your role titles, skills, and location filters
+│   │   └── upskill/                    # Learning plan generation
+│   └── commands/                       # Slash commands (/apply, /scrape, /rank, etc.)
+└── .agents/skills/                     # Portal-search CLIs (LinkedIn, Jobindex, Jobbank, etc.)
+
+02-Documents/
+├── cv/                          # Your master CV (PDF or LaTeX)
+├── linkedin/                    # LinkedIn profile export (PDF)
+├── diplomas/                    # Degree certificates and transcripts
+├── references/                  # Reference letters
+├── postings/                    # Pasted job posting text when Claude can't fetch
+└── applications/                # Per-application archive (created by /apply and /outcome)
+    └── <company>_<role>/
+        ├── job_posting.md       # The posting you applied for
+        ├── cv_draft.<ext>       # The CV variant you submitted
+        ├── cover_letter.<ext>   # The cover letter you submitted
+        └── outcome.md           # Interview progress and result
+
+03-JOB-SEARCH/
+└── search-queries.md            # Reference copy of search strategy
+
+04-APPLICATIONS/
+├── cv/
+│   ├── main_example.tex         # Stock CV template (LaTeX)
+│   └── main_<company>_<role>.tex  # Tailored CV drafts (created by /apply)
+├── cover_letters/
+│   ├── cover.cls                # Stock LaTeX class
+│   ├── cover_example.tex        # Stock cover letter template
+│   └── cover_<company>_<role>.tex  # Tailored cover letters (created by /apply)
+└── templates/
+    ├── cv/
+    │   └── <name>/
+    │       ├── TEMPLATE.md      # Custom template manifest (created by /add-template)
+    │       └── template<ext>    # Custom CV skeleton
+    └── cover_letters/
+        └── <name>/
+            ├── TEMPLATE.md      # Custom template manifest
+            └── template<ext>    # Custom cover letter skeleton
+
+job_search_tracker.csv           # Application tracker (created by /apply and /outcome)
+job_scraper/
+├── seen_jobs.json               # Scraper dedup state and ranked jobs (created by /scrape and /rank)
+└── notion_sync.json             # Notion database state (created by /notion-sync, gitignored)
 ```
 
-## Getting started
+## Requirements
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/<your-username>/GetJobIQ.git
-   cd GetJobIQ
-   ```
-2. Open it in Claude Code (or your preferred AI coding agent).
-3. Run `/setup` and follow the prompts — it builds your profile from your
-   existing CV/LinkedIn export, or a short interview if you don't have one.
-4. Paste a job posting and run `/apply` to see the full workflow end to end.
+- **Claude Code** or another AI agent with `.claude/` skill/command support
+- **Bun** — for running portal-search CLIs (`bun run` must work on your system)
+- **LaTeX** — `lualatex` (for compiling the default CV template) and `xelatex` (for the default cover letter template); required only if you use the stock LaTeX templates. Custom templates registered via `/add-template` can use Typst, Markdown, or another toolchain instead.
+- **`pdftotext` (poppler)** — optional, used only in `/apply` Step 5d for ATS text-layer verification; gracefully skipped if not installed
+- **Python** — optional, used only for the salary-lookup benchmark in `/apply` Step 1 (`python 01-FRAMEWORK/salary_lookup.py`); skipped if not configured
 
-### Requirements
+## Custom Templates
 
-- An AI coding agent with markdown-based skill/command support (built and
-  tested on Claude Code; portable to others via `AGENTS.md`)
-- A LaTeX distribution (for compiling the CV/cover-letter templates) —
-  `lualatex` and `xelatex`
-- Optional: `pdftotext` (poppler) for ATS-parseability verification
+Register a custom CV or cover letter template with `/add-template`. It:
+
+1. Stores your template skeleton and metadata in `04-APPLICATIONS/templates/cv/<name>/` or `04-APPLICATIONS/templates/cover_letters/<name>/`
+2. Creates a manifest file (`TEMPLATE.md`) declaring the source extension, compile command, page limit, and style rules
+3. Activates the template by inserting a managed block at the top of `05-cv-templates.md` or `06-cover-letter-templates.md`
+4. `/apply` reads this managed block and uses the declared extension, compile command, and page limits for all subsequent applications
+
+You can switch between custom templates or revert to the stock LaTeX templates with `/add-template --use <name>` or `/add-template --use default`.
 
 ## Privacy
 
-Your candidate data (`CLAUDE.md`, tailored CVs, application history) is
-personal and should not be committed publicly as-is. Add a `.gitignore`
-before your first `/setup` run if you plan to keep this repo public, or
-keep your fork private.
+Your candidate profile (`01-FRAMEWORK/CLAUDE.md`), skill profile files, tailored CVs and cover letters, application tracker (`job_search_tracker.csv`), scraper state (`job_scraper/`), and application archive (`02-Documents/applications/`) all contain personal data.
 
-## Status
+**If this project folder is in a public or shared repository, add these to your `.gitignore` before your first commit:**
 
-This framework is under active development. See [CONTRIBUTING.md](CONTRIBUTING.md)
-for how to add a job portal, a CV template, or report an issue.
+```
+01-FRAMEWORK/CLAUDE.md
+01-FRAMEWORK/.claude/skills/job-application-assistant/01-candidate-profile.md
+01-FRAMEWORK/.claude/skills/job-application-assistant/02-behavioral-profile.md
+01-FRAMEWORK/.claude/skills/job-scraper/search-queries.md
+02-Documents/
+04-APPLICATIONS/cv/main_*.tex
+04-APPLICATIONS/cover_letters/cover_*.tex
+job_search_tracker.csv
+job_scraper/
+```
+
+Or keep the repository private.
 
 ## License
 
-<!-- Add your chosen license here, e.g. MIT -->
+MIT, see [LICENSE](LICENSE).
