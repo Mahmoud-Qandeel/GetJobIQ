@@ -134,6 +134,19 @@ Write into it:
 Never register a template without a successful test compile. Templates that "look fine" routinely fail on missing fonts, missing classes/packages, or a wrong compile command.
 
 1. Copy `template<source-extension>` to a scratch file in the same folder (e.g. `_compile_test.tex` or `_compile_test.typ`) and fill every `[PLACEHOLDER]` with realistic dummy data (name, contact line, one education entry, one job entry with 3 bullets — enough content to exercise the layout).
+
+**Checkpoint before compilation:** The test file is now ready. Ask the user:
+
+> I've created a test file `_compile_test<source-extension>` in `04-APPLICATIONS/templates/<type>/<name>/` with dummy data. You can review the file if you'd like before I compile it.
+>
+> **Ready to proceed with compilation?** (Yes/No)
+
+If the user says no and wants to review/edit `_compile_test<source-extension>` first, stop here. They can open and edit the file, then tell you to proceed with step 2.
+
+If the user says yes, continue to step 2.
+
+---
+
 2. Compile with the declared compile command, substituting `_compile_test` for `<file>`:
    ```bash
    cd 04-APPLICATIONS/templates/<type>/<name> && <declared compile command with <file> -> _compile_test>

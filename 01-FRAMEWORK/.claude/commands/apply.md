@@ -205,6 +205,33 @@ After all edits are applied, the two files on disk are the final drafts.
 
 ---
 
+## Step 4.5: DRAFTER - Review .tex Files Before Compilation
+
+**The CV and cover letter source files are now ready.** Before proceeding to PDF compilation, the user has a chance to review or edit the LaTeX source if needed.
+
+Present the file paths and ask:
+
+> Both files are ready for your review:
+> - `04-APPLICATIONS/cv/main_<company>_<role>.tex`
+> - `04-APPLICATIONS/cover_letters/cover_<company>_<role>.tex`
+>
+> **Do you want to:**
+> 1. **Review/edit the .tex files first** — I'll stop here. You can open and edit the files in your editor, then tell me when you're ready to compile.
+> 2. **Proceed with PDF compilation now** — I'll compile both files immediately and inspect the PDFs.
+
+**If the user chooses option 1 (review/edit first):**
+- Stop the workflow here. Do not proceed to Step 5. The user can edit the .tex files manually.
+- When they're ready to compile, they will need to re-invoke the workflow or use a compile-only entry point (see "Missing entry point" note below).
+
+**If the user chooses option 2 (proceed now):**
+- Continue to Step 5 without pausing.
+
+---
+
+**⚠️ Missing entry point:** There is currently no dedicated "compile this .tex file to PDF" entry point in the `/apply` workflow. If the user edits the .tex file(s) and wants to re-compile, they must either re-invoke `/apply <posting>` from scratch (which skips drafting and goes straight to compilation) or manually run the compile commands from the command line. **Proposal:** Add a `--compile-only <company>_<role>` mode to `/apply`, or a separate `/compile <company>_<role>` command, that takes an existing `main_<company>_<role><CV_EXT>` and `cover_<company>_<role><COVER_EXT>`, runs Step 5 (compile & inspect), and proceeds to Step 6 (record the application). This is out of scope for this change but should be considered.
+
+---
+
 ## Step 5: DRAFTER - Compile & Inspect PDFs (MANDATORY)
 
 **Never skip this step.** The source files looking fine is not sufficient — page-break decisions are unpredictable and commonly produce broken layouts (orphaned job titles separated from their bullets, cover letters spilling to 2 pages, bullet fonts not matching body text). Compile both documents and visually verify the PDFs before presenting.
