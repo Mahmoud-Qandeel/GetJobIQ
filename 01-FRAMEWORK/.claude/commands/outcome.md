@@ -3,7 +3,7 @@
 You are recording what happened to a job application: progress updates (interview invitations, stages completed, offers) and final resolutions (hired, rejected, no response). The data lands in two places the framework already reads but nothing systematically writes:
 
 - `job_search_tracker.csv` - the status column that `/scrape` and `/rank` use for dedup and exclusion
-- `02-Documents/applications/<company>_<role>/` - the per-application archive (posting, submitted drafts, `outcome.md`) that `/setup` Path A mines to calibrate `04-job-evaluation.md` and surface STAR candidates
+- `02-Documents/applications/<company>/<role>/` - the per-application archive (posting, submitted drafts, `outcome.md`) that `/setup` Path A mines to calibrate `04-job-evaluation.md` and surface STAR candidates
 
 `/outcome` writes the data; `/setup` interprets it. This command never edits the evaluation framework or profile files itself.
 
@@ -39,7 +39,7 @@ Follow these steps **in order**.
 
    **Deadline urgency is the one clock that does apply to a drafted row.** Show the `deadline` column when the row has one and leave it blank otherwise. Mark a deadline within 7 days with 🔥 and one that has already passed with ⚠, on the same 7-day threshold `/rank` Step 3 uses so the two commands never disagree. A passed deadline on a `drafted` row is the failure this column exists to catch - documents written, never sent, and now unsendable - so name it in one line under the table rather than leaving the user to compare dates. This changes nothing about the follow-up offer: a drafted row is still never chased, because nobody is late replying to something that was never sent.
 
-4. Derive the archive folder name: `02-Documents/applications/<company>_<role>/` by the **Subfolder naming** rule in `02-Documents/README.md`. Check whether the folder and an `outcome.md` already exist - if so, you are updating, not creating.
+4. Derive the archive folder path: `02-Documents/applications/<company>/<role>/` by the **Subfolder naming** rule in `02-Documents/README.md` (two segments, each independently sanitized). Check whether the folder and an `outcome.md` already exist - if so, you are updating, not creating.
 
 ---
 
@@ -93,7 +93,7 @@ Enter this branch from the `followup` argument (Step 0) or from the offer under 
 
 **Drafting.** For each selected application:
 
-1. Read the archive folder: the `job_posting.md`, `cv_draft.tex`, and `cover_letter.tex` that Step 3 maintains are the source of **every claim** the note may make - this is Rule 3 (never fabricate) widened to "no new claims": a follow-up that introduces skills or experience the submitted materials don't contain is a fabrication vector.
+1. Read the archive folder: the `job_posting.md`, `CV/<*name*>_CV.<cv-ext>`, and `cover_letter/<*name*>_cover.<cover-ext>` that Step 3 maintains are the source of **every claim** the note may make - this is Rule 3 (never fabricate) widened to "no new claims": a follow-up that introduces skills or experience the submitted materials don't contain is a fabrication vector.
 2. Apply the writing style rules from `03-writing-style.md` (no cliches, no em-dashes, warm but direct), and match the application's language - draw the register from the archived cover letter.
 3. Write roughly **60 to 120 words**: address the `contact_person` from the tracker if present (otherwise the team, in the application's language); one sentence restating interest in the specific role; one concrete value-reminder drawn from the submitted materials; one polite question about the timeline. No pressure, no "just checking in" filler.
 4. Shape it for the `channel` column: email (with a subject line reusing the application's headline), LinkedIn message (shorter, no subject), or portal message (plain text).
@@ -112,9 +112,9 @@ If the user decides not to send, log nothing.
 
 ## Step 3: Archive the Application Materials
 
-Create or update `02-Documents/applications/<company>_<role>/`. All content here is personal data - the folder is already gitignored (`02-Documents/applications/**`), so nothing needs redacting.
+Create or update `02-Documents/applications/<company>/<role>/`. All content here is personal data - the folder is already gitignored (`02-Documents/applications/**`), so nothing needs redacting.
 
-1. **`cv_draft.<cv-ext>` and `cover_letter.<cover-ext>`** - copy (never move) the submitted files. `<cv-ext>` and `<cover-ext>` are the **active template manifest's declared source extensions**, each **defaulting to `.tex` when no custom template is active** (read from `04-APPLICATIONS/templates/cv/<name>/TEMPLATE.md` or `04-APPLICATIONS/templates/cover_letters/<name>/TEMPLATE.md` when a custom template is registered). Locate them via the tracker row's `cv_file`/`cover_letter_file` columns; if those are empty, discover by extension-aware glob: `04-APPLICATIONS/cv/main_<company>*.<cv-ext>` and `04-APPLICATIONS/cover_letters/cover_<company>_*.<cover-ext>`. Preserve the source extension in the archive filename. If a file already exists in the archive, leave it - the archived version is what was actually submitted. If no draft files exist (application made outside `/apply`), skip with a note.
+1. **`CV/<*name*>_CV.<cv-ext>` and `cover_letter/<*name*>_cover.<cover-ext>`** - copy (never move) the submitted files. `<cv-ext>` and `<cover-ext>` are the **active template manifest's declared source extensions**, each **defaulting to `.tex` when no custom template is active** (read from `04-APPLICATIONS/templates/cv/<name>/TEMPLATE.md` or `04-APPLICATIONS/templates/cover_letters/<name>/TEMPLATE.md` when a custom template is registered). Locate them via the tracker row's `cv_file`/`cover_letter_file` columns; if those are empty, discover by extension-aware glob: `02-Documents/applications/<company>/<role>/CV/*_CV.<cv-ext>` and `02-Documents/applications/<company>/<role>/cover_letter/*_cover.<cover-ext>`. Preserve the source extension in the archive filename. If a file already exists in the archive, leave it - the archived version is what was actually submitted. If no draft files exist (application made outside `/apply`), skip with a note.
 2. **`job_posting.md`** - if it already exists, leave it. Otherwise try WebFetch on the tracker row's `source` URL and save the posting text, retrying a 403 with browser headers per `01-FRAMEWORK/.claude/skills/job-application-assistant/09-web-research.md`. If the URL is dead (postings expire fast - this is exactly why the archive matters), ask the user to paste the posting, or write a stub noting the posting is unavailable. **Never reconstruct a posting from memory.**
 3. **`outcome.md`** - write or update it in exactly the format documented in `02-Documents/README.md`, so `/setup` Path A parses it without special cases:
 
@@ -167,8 +167,8 @@ Summarize what was recorded:
 
 > **Outcome recorded for <Role> at <Company>.**
 >
-> - `02-Documents/applications/<company>_<role>/outcome.md` - status: <status>, <what changed>
-> - Archived: <which of cv_draft.tex / cover_letter.tex / job_posting.md were copied or fetched, and which were skipped and why>
+> - `02-Documents/applications/<company>/<role>/outcome.md` - status: <status>, <what changed>
+> - Archived: <which of `CV/<name>_CV.<cv-ext>` / `cover_letter/<name>_cover.<cover-ext>` / `job_posting.md` were copied or fetched, and which were skipped and why>
 > - Tracker: status → <new status>
 >
 > [Calibration suggestion from Step 5, if triggered]

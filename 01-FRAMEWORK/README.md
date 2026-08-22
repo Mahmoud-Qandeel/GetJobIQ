@@ -41,15 +41,16 @@ neither:
 ## Repository structure
 
 ```
-.claude/
-  skills/job-application-assistant/   # Evaluation, CV/letter rules, interview prep
-  skills/job-scraper/                 # Search strategy, portal orchestration
-  commands/                           # Slash commands (/apply, /rank, /outcome, ...)
-.agents/skills/                       # Portable job-portal search CLIs (multi-agent)
-cv/, cover_letters/                   # LaTeX templates + your tailored output
-documents/                            # Source materials + per-application archive
-CLAUDE.md                             # Your candidate profile (populated by /setup)
-AGENTS.md                             # Cross-agent compatibility pointer
+01-FRAMEWORK/                         # This folder
+  .claude/
+    skills/job-application-assistant/ # Evaluation, CV/letter rules, interview prep
+    skills/job-scraper/               # Search strategy, portal orchestration
+    commands/                         # Slash commands (/apply, /rank, /outcome, ...)
+  .agents/skills/                     # Portable job-portal search CLIs (multi-agent)
+  CLAUDE.md                           # Your candidate profile (populated by /setup)
+  AGENTS.md                           # Cross-agent compatibility pointer
+02-Documents/                         # Source materials + per-application archive
+04-APPLICATIONS/cv/, cover_letters/   # Stock LaTeX templates (tailored output lives under 02-Documents/applications/<company>/<role>/)
 ```
 
 ## Getting started

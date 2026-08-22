@@ -74,23 +74,25 @@ Evaluate job postings against your profile, draft a tailored CV and cover letter
 ├── references/                  # Reference letters
 ├── postings/                    # Pasted job posting text when Claude can't fetch
 └── applications/                # Per-application archive (created by /apply and /outcome)
-    └── <company>_<role>/
+    └── <company>/<role>/
         ├── job_posting.md       # The posting you applied for
-        ├── cv_draft.<ext>       # The CV variant you submitted
-        ├── cover_letter.<ext>   # The cover letter you submitted
-        └── outcome.md           # Interview progress and result
+        ├── outcome.md           # Interview progress and result
+        ├── CV/
+        │   ├── <company>_<role>_<name>_CV.<cv-ext>       # The CV variant you submitted
+        │   └── <company>_<role>_<name>_CV.pdf            # Compiled PDF
+        └── cover_letter/
+            ├── <company>_<role>_<name>_cover.<cover-ext> # The cover letter you submitted
+            └── <company>_<role>_<name>_cover.pdf         # Compiled PDF
 
 03-JOB-SEARCH/
 └── search-queries.md            # Reference copy of search strategy
 
 04-APPLICATIONS/
 ├── cv/
-│   ├── main_example.tex         # Stock CV template (LaTeX)
-│   └── main_<company>_<role>.tex  # Tailored CV drafts (created by /apply)
+│   └── main_example.tex         # Stock CV template (LaTeX) — your master baseline; tailored drafts live under 02-Documents/applications/
 ├── cover_letters/
 │   ├── cover.cls                # Stock LaTeX class
-│   ├── cover_example.tex        # Stock cover letter template
-│   └── cover_<company>_<role>.tex  # Tailored cover letters (created by /apply)
+│   └── cover_example.tex        # Stock cover letter template
 └── templates/
     ├── cv/
     │   └── <name>/
@@ -138,8 +140,6 @@ Your candidate profile (`01-FRAMEWORK/CLAUDE.md`), skill profile files, tailored
 01-FRAMEWORK/.claude/skills/job-application-assistant/02-behavioral-profile.md
 01-FRAMEWORK/.claude/skills/job-scraper/search-queries.md
 02-Documents/
-04-APPLICATIONS/cv/main_*.tex
-04-APPLICATIONS/cover_letters/cover_*.tex
 job_search_tracker.csv
 job_scraper/
 ```

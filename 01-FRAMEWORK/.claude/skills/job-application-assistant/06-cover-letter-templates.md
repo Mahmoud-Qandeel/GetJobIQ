@@ -8,23 +8,23 @@ framework_version: 1.0.2
 
 Cover letters use a custom LaTeX document class (`cover.cls`) with Lato/Raleway fonts.
 
-**Output file:** `04-APPLICATIONS/cover_letters/cover_<company>_<role>.tex`
+**Output file:** `02-Documents/applications/<company>/<role>/cover_letter/<company>_<role>_<name>_cover.tex` (the `<COVER_FILENAME>` composed by `/apply` Step 2, or `job-application-assistant/SKILL.md`'s equivalent derivation, from the **Subfolder and filename naming** rule in `02-Documents/README.md`)
 **Compile with:** XeLaTeX (cover.cls requires fontspec)
 **Font directory:** `04-APPLICATIONS/cover_letters/OpenFonts/fonts/`
 
 ### Compile command
 
 ```bash
-cd cover_letters && xelatex -interaction=nonstopmode cover_<company>_<role>.tex
+cd 02-Documents/applications/<company>/<role>/cover_letter && xelatex -interaction=nonstopmode <COVER_FILENAME>.tex
 ```
 
-Expected output: `Output written on cover_<company>_<role>.pdf (1 page, ...)`. Any page count other than 1 is a failure that must be fixed before presenting to the user.
+Expected output: `Output written on <COVER_FILENAME>.pdf (1 page, ...)`. Any page count other than 1 is a failure that must be fixed before presenting to the user.
 
 ## Compile-and-Inspect Loop (MANDATORY)
 
 After writing the cover letter and before presenting to the user, always compile and visually inspect the PDF. Iterate until the layout is clean:
 
-1. Run `xelatex -interaction=nonstopmode cover_<company>_<role>.tex`
+1. Run `xelatex -interaction=nonstopmode <COVER_FILENAME>.tex` in `02-Documents/applications/<company>/<role>/cover_letter/`
 2. Confirm page count is exactly 1 and compile succeeded
 3. Read the PDF via the Read tool and visually check: signature fits at the bottom, no text cut off, bullet font matches body
 

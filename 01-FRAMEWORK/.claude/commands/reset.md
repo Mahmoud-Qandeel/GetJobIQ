@@ -197,7 +197,7 @@ rm -f 02-Documents/linkedin/*
 rm -f 02-Documents/diplomas/*
 rm -f 02-Documents/references/*
 rm -f 02-Documents/postings/*
-rm -rf 02-Documents/applications/*/
+rm -rf 02-Documents/applications/*/*/
 ```
 
 ---

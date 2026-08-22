@@ -88,15 +88,15 @@ automatically from your Languages table above - don't duplicate them here. -->
 - [DEALBREAKER_2]
 
 ## Repo Structure
-- `04-APPLICATIONS/cv/` - LaTeX CV variants (moderncv template, banking style)
-- `04-APPLICATIONS/cover_letters/` - LaTeX cover letters (custom cover.cls template)
+- `04-APPLICATIONS/cv/` - Stock/master LaTeX CV template (moderncv, banking style); tailored per-application drafts live under `02-Documents/applications/<company>/<role>/CV/`
+- `04-APPLICATIONS/cover_letters/` - Stock LaTeX cover letter template (custom cover.cls); tailored per-application drafts live under `02-Documents/applications/<company>/<role>/cover_letter/`
 - `01-FRAMEWORK/.claude/skills/` - AI skill definitions for the application workflow
 - `01-FRAMEWORK/.agents/skills/` - Job search CLI tools
 
 ## Workflow for New Job Applications
 1. User provides a job posting (URL or text)
 2. **Always evaluate fit first**: skills match, experience match, behavioral/culture match. Present this assessment to the user before proceeding.
-3. If good fit: create targeted CV (`04-APPLICATIONS/cv/main_<company>_<role>.tex`) and cover letter (`04-APPLICATIONS/cover_letters/cover_<company>_<role>.tex`)
+3. If good fit: create targeted CV and cover letter under `02-Documents/applications/<company>/<role>/` (filenames follow the **Subfolder and filename naming** rule in `02-Documents/README.md`)
 4. **Verify both documents** (see Verification Checklist below)
 5. Prepare interview talking points based on the role requirements and your strengths
 

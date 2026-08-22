@@ -26,17 +26,20 @@ When the user provides a job posting (URL or text), follow this workflow:
 - Suggest whether the candidate should call the employer before applying (see `04-job-evaluation.md` for guidance)
 - Ask the user if they want to proceed with an application
 
+**Filename and path derivation (used by Steps 2, 3, and 3b):** `<company>`, `<role>`, and `<name>` are derived separately by the **Subfolder and filename naming** rule in `02-Documents/README.md` — the same rule `/apply` Step 2 uses, so this path and `/apply`'s never diverge. `<name>` comes from `01-candidate-profile.md`'s `**Name:**` line; if it is still the unfilled placeholder `[YOUR_NAME]` or sanitizes to empty, stop and ask the user to run `/setup` first — do not create a file with a garbage or placeholder segment. Compose `<CV_FILENAME>` = `<company>_<role>_<name>_CV` and `<COVER_FILENAME>` = `<company>_<role>_<name>_cover`. Resolve `<CV_EXT>`/`<COVER_EXT>` the same way `/apply` Step 2 does: if `05-cv-templates.md`/`06-cover-letter-templates.md` opens with an `ACTIVE-TEMPLATE` managed block (inserted by `/add-template`), use its declared source extension; otherwise use the stock `.tex` default. Derive these once per invocation and reuse across whichever steps run.
+
 ### Step 2: Tailor CV
-- Before writing either document, derive `<company>_<role>` once by the **Subfolder naming** rule in `02-Documents/README.md`; reuse that exact value for the CV, cover letter, and Step 3b archive path. If the rule says to stop because the derived name is empty, stop before creating any file.
-- Read the most relevant existing CV variant from `04-APPLICATIONS/cv/` as a starting point
+- Derive `<CV_FILENAME>` and `<CV_EXT>` as described above (skip if already derived this invocation).
+- Read the most relevant existing CV variant from `02-Documents/applications/*/*/CV/*_CV*<CV_EXT>` as a starting point
 - Follow the guidelines in `05-cv-templates.md`
-- Create `04-APPLICATIONS/cv/main_<company>_<role>.tex` with tailored content
+- Create `02-Documents/applications/<company>/<role>/CV/<CV_FILENAME><CV_EXT>` with tailored content
 - Adjust: profile statement, skills section, experience bullet emphasis, section order
 
 ### Step 3: Write Cover Letter
+- Derive `<COVER_FILENAME>` and `<COVER_EXT>` as described above (skip if already derived this invocation).
 - Follow the writing style rules in `03-writing-style.md` (critical: no em-dashes, no cliches)
 - Follow the template structure in `06-cover-letter-templates.md`
-- Create `04-APPLICATIONS/cover_letters/cover_<company>_<role>.tex`
+- Create `02-Documents/applications/<company>/<role>/cover_letter/<COVER_FILENAME><COVER_EXT>`
 - Ensure the letter connects specific experience to the role requirements
 
 ### Step 3b: Record the Application

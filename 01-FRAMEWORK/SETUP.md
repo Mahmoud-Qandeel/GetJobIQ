@@ -280,15 +280,17 @@ After `/apply` creates the LaTeX files:
 
 ```bash
 # Bash / zsh / Git Bash
-cd cv && lualatex main_<company>_<role>.tex && cd ..
-cd cover_letters && xelatex cover_<company>_<role>.tex && cd ..
+(cd 02-Documents/applications/<company>/<role>/CV && lualatex <company>_<role>_<name>_CV.tex)
+(cd 02-Documents/applications/<company>/<role>/cover_letter && xelatex <company>_<role>_<name>_cover.tex)
 ```
 
 ```powershell
 # PowerShell
-Set-Location cv; lualatex main_<company>_<role>.tex; Set-Location ..
-Set-Location cover_letters; xelatex cover_<company>_<role>.tex; Set-Location ..
+Push-Location 02-Documents/applications/<company>/<role>/CV; lualatex <company>_<role>_<name>_CV.tex; Pop-Location
+Push-Location 02-Documents/applications/<company>/<role>/cover_letter; xelatex <company>_<role>_<name>_cover.tex; Pop-Location
 ```
+
+`<company>`, `<role>`, and `<name>` are the same sanitized segments from the **Subfolder and filename naming** rule in `02-Documents/README.md` that `/apply` used to create the files.
 
 These commands apply to the stock templates (moderncv CV, `cover.cls` cover letter). If you'd rather use your own LaTeX template, run `/add-template` — it captures the template's compile engine, fonts, style rules, and page limit, test-compiles it, and wires it into `/apply`. See the "LaTeX templates" section in the README.
 

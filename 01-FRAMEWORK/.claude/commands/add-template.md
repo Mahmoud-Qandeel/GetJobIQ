@@ -179,9 +179,8 @@ Insert (or replace, if one exists) this block immediately after the file's H1 ti
 > - **Compile command:** `<the full declared command>` (not the command named in the stock guidance below — `/apply`'s compile step must use this instead)
 > - **Fonts:** <font summary, including any path note for bundled fonts>
 > - **Page limit:** exactly <N> page(s)
-> - **Source output file:** `04-APPLICATIONS/cv/main_<company>_<role><source-extension>` / `04-APPLICATIONS/cover_letters/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
+> - **Source output file:** `02-Documents/applications/<company>/<role>/CV/<CV_FILENAME><source-extension>` / `02-Documents/applications/<company>/<role>/cover_letter/<COVER_FILENAME><source-extension>` where `<CV_FILENAME>` and `<COVER_FILENAME>` are composed by `/apply` Step 2; copy any class/package/font files the template needs into the output directory, or reference them by relative path
 > - **PDF output pattern:** `<the manifest's PDF output pattern>` — `/apply` uses this path for inspection instead of assuming `<file>.pdf`
-> - **Archive filename:** `cv_draft.<cv-ext>` / `cover_letter.<cover-ext>` where `<cv-ext>` and `<cover-ext>` are **the active template manifest's declared source extensions** (from `TEMPLATE.md`), each defaulting to `.tex` when no custom template is active
 <!-- END ACTIVE-TEMPLATE -->
 ```
 
