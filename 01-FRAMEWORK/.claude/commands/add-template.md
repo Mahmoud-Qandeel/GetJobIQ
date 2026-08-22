@@ -40,6 +40,7 @@ If `$ARGUMENTS` contains `--use <name>`:
 5. Read the matching `TEMPLATE.md` and extract:
    - **Type:** `CV` or `Cover letter`
    - **Source extension:** e.g. `.tex`, `.typ`
+   - **PDF output pattern:** the manifest's declared PDF path pattern relative to the output directory
    - **Compile command:** the full declared command
    - **Engine/toolchain:** e.g. `lualatex`, `typst` (display label)
    - **Page limit:** `<N> page(s)`
@@ -106,6 +107,7 @@ Write into it:
 
 - **Type:** CV | Cover letter
 - **Source extension:** .tex | .typ | ...
+- **PDF output pattern:** <file>.pdf | <custom relative PDF path pattern>
 - **Engine/toolchain:** lualatex | xelatex | pdflatex | typst | <other> (display label only)
 - **Page limit:** <N> page(s)
 - **Fonts:** <main font> (<bundled in fonts/ | system font - must be installed>)
@@ -164,7 +166,9 @@ Insert (or replace, if one exists) this block immediately after the file's H1 ti
 > - **Compile command:** `<the full declared command>` (not the command named in the stock guidance below — `/apply`'s compile step must use this instead)
 > - **Fonts:** <font summary, including any path note for bundled fonts>
 > - **Page limit:** exactly <N> page(s)
-> - **Output file:** `04-APPLICATIONS/cv/main_<company>_<role><source-extension>` / `04-APPLICATIONS/cover_letters/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
+> - **Source output file:** `04-APPLICATIONS/cv/main_<company>_<role><source-extension>` / `04-APPLICATIONS/cover_letters/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
+> - **PDF output pattern:** `<the manifest's PDF output pattern>` — `/apply` uses this path for inspection instead of assuming `<file>.pdf`
+> - **Archive filename:** `cv_draft.<cv-ext>` / `cover_letter.<cover-ext>` where `<cv-ext>` and `<cover-ext>` are **the active template manifest's declared source extensions** (from `TEMPLATE.md`), each defaulting to `.tex` when no custom template is active
 <!-- END ACTIVE-TEMPLATE -->
 ```
 

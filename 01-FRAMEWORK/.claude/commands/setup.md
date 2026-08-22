@@ -372,8 +372,8 @@ Add role-specific profile statement templates based on their background.
 ### 6. Update `07-interview-prep.md` *(Path B and C; skip if Path A populated it)*
 Create STAR examples from their actual experience (at least 3-4 examples). Path A leaves STAR stubs under "## STAR Candidates (Complete Manually)" rather than full examples; if any stubs are present, mention them in Step 4 so the user knows to flesh them out.
 
-### 7. Update `04-APPLICATIONS/cv/main_example.tex`
-Replace placeholder personal data with their actual name, contact info, and add their education and most recent experience entries.
+### 7. Update the master CV baseline
+**Define the master CV baseline:** `04-APPLICATIONS/cv/main_example<CV_EXT>`, where `<CV_EXT>` is the active CV template manifest's declared source extension when a custom template is registered (e.g. `.tex`, `.typ`), or `.tex` by default when no custom template is active. Update this file with placeholder personal data replaced by the user's actual name, contact info, education, and most recent experience entries.
 
 ### 8. Generate `01-FRAMEWORK/.claude/skills/job-scraper/search-queries.md`
 Replace all placeholder tokens in the search queries file with the user's actual information from Section 9 (or the equivalent follow-up questions in Path A's Step A7):

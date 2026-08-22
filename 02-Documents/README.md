@@ -17,8 +17,8 @@ This folder holds your actual career documents. The `/setup` command reads every
 ├── applications/                # Past job applications
 │   └── <company>_<role>/
 │       ├── job_posting.md       # The original job posting (written by /apply, or pasted)
-│       ├── cover_letter.tex     # The cover letter you submitted
-│       ├── cv_draft.tex         # The CV variant you submitted
+│       ├── cover_letter.<cover-ext> # The submitted cover letter; `<cover-ext>` is the active cover-letter template manifest's source extension, defaulting to `.tex`
+│       ├── cv_draft.<cv-ext>    # The submitted CV variant; `<cv-ext>` is the active CV template manifest's source extension, defaulting to `.tex`
 │       └── outcome.md           # Result + notes (fill in after hearing back)
 └── README.md                    # This file
 ```
@@ -134,9 +134,9 @@ applications/
 
 **`job_posting.md`** — The full job posting text, written by `/apply`, or paste it here. Used by `/setup` to infer which skills and role types you have targeted, and to calibrate `04-job-evaluation.md`.
 
-**`cover_letter.tex`** — The cover letter you actually submitted. Used to extract writing style patterns and structure for `06-cover-letter-templates.md`.
+**`cover_letter.<cover-ext>`** — The cover letter you actually submitted. `<cover-ext>` is the active cover-letter template manifest's source extension, defaulting to `.tex`. Used to extract writing style patterns and structure for `06-cover-letter-templates.md`.
 
-**`cv_draft.tex`** — The CV variant you submitted. Used to extract profile statement styles for `05-cv-templates.md`.
+**`cv_draft.<cv-ext>`** — The CV variant you submitted. `<cv-ext>` is the active CV template manifest's source extension, defaulting to `.tex`. Used to extract profile statement styles for `05-cv-templates.md`.
 
 **`outcome.md`** — Fill this in after the application resolves. Format:
 

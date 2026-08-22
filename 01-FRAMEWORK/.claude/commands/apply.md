@@ -32,11 +32,12 @@ This rule is the input side of the Step 3 Factual Grounding Audit, not a competi
 
 ## Step 1: DRAFTER - Evaluate Fit
 
-Read the evaluation framework:
+Read the evaluation framework and profile:
 - `01-FRAMEWORK/.claude/skills/job-application-assistant/04-job-evaluation.md`
 - `01-FRAMEWORK/.claude/skills/job-application-assistant/01-candidate-profile.md`
+- `01-FRAMEWORK/.claude/skills/job-application-assistant/02-behavioral-profile.md`
 
-Using the framework from `04-job-evaluation.md`, evaluate the job posting against the candidate's profile. If the salary lookup tool is configured, run:
+Using the framework from `04-job-evaluation.md` and the behavioral profile from `02-behavioral-profile.md`, evaluate the job posting against the candidate's profile for skills match, experience match, and **behavioral/culture fit**. If the salary lookup tool is configured, run:
 
 ```bash
 python 01-FRAMEWORK/salary_lookup.py "<Company Name>" --json
@@ -68,13 +69,13 @@ Read only the reference files you do not yet have:
 - `01-FRAMEWORK/.claude/skills/job-application-assistant/05-cv-templates.md`
 - `01-FRAMEWORK/.claude/skills/job-application-assistant/06-cover-letter-templates.md`
 
-**Resolve the active template (do this once, reuse everywhere below):** if `05-cv-templates.md` or `06-cover-letter-templates.md` opens with an `ACTIVE-TEMPLATE` managed block (inserted by `/add-template`), read its declared **source extension** and **compile command** — these override the stock `.tex`/lualatex (CV) and `.tex`/xelatex (cover letter) defaults for the rest of this workflow. Call these `<CV_EXT>`/`<CV_COMPILE>` and `<COVER_EXT>`/`<COVER_COMPILE>`; where no block is present, they default to `.tex`, the stock lualatex command, and the stock xelatex command respectively. Every `.tex` reference below is really `<CV_EXT>` or `<COVER_EXT>` — stock behavior is unchanged, this only matters when a custom template is active.
+**Resolve the active template (do this once, reuse everywhere below):** if `05-cv-templates.md` or `06-cover-letter-templates.md` opens with an `ACTIVE-TEMPLATE` managed block (inserted by `/add-template`), read its manifest's declared **source extension**, **compile command**, **PDF output pattern**, and **page limit**. These **override** the stock `.tex`/lualatex/`<file>.pdf`/2-page (CV) and `.tex`/xelatex/`<file>.pdf`/1-page (cover letter) defaults for **all downstream steps** (compile, inspect, archive, and output-path expectations). Call these `<CV_EXT>`/`<CV_COMPILE>`/`<CV_PDF_OUTPUT>`/`<CV_PAGE_LIMIT>` and `<COVER_EXT>`/`<COVER_COMPILE>`/`<COVER_PDF_OUTPUT>`/`<COVER_PAGE_LIMIT>`. Where no block is present, use the stock defaults. Define the master CV baseline as `04-APPLICATIONS/cv/main_example<CV_EXT>`: this is `04-APPLICATIONS/cv/main_example.tex` by default, and the file matching the active CV template's declared extension when a custom template is registered.
 
 Also read the most recent existing CV and cover letter files for concrete structural reference (one of each is enough):
 - Read any existing `04-APPLICATIONS/cv/main_*<CV_EXT>` file as a structural reference
 - Read any existing `04-APPLICATIONS/cover_letters/cover_*<COVER_EXT>` or `04-APPLICATIONS/cover_letters/Cover_*<COVER_EXT>` file as a structural reference
 
-*The master candidate profile (`01-candidate-profile.md`), the master CV (`04-APPLICATIONS/cv/main_example.tex`), and 01-FRAMEWORK/CLAUDE.md's Candidate Profile section are the sole source of truth for facts; existing tailored CVs may be read for structure and phrasing only, never as a source of claims.*
+*The master candidate profile (`01-candidate-profile.md`), the master CV baseline (`04-APPLICATIONS/cv/main_example<CV_EXT>`), and 01-FRAMEWORK/CLAUDE.md's Candidate Profile section are the sole source of truth for facts; existing tailored CVs may be read for structure and phrasing only, never as a source of claims.*
 
 ### Requirement coverage (both documents)
 - **Every requirement the posting states gets addressed - matched or honestly gapped, never silently omitted.** A stated requirement the candidate lacks (a tool, a clearance, years of experience) is acknowledged with an honest bridge ("not in my daily toolkit yet; a natural extension of X"), because omission reads as hiding once an interviewer asks. Build the requirement list from Step 1 and check both drafts against it before Step 3.
@@ -88,8 +89,8 @@ Also read the most recent existing CV and cover letter files for concrete struct
 - Follow the moderncv/banking format from `05-cv-templates.md`
 - Tailor the profile statement and experience bullets to the specific role
 - Reframe skills and achievements to match job requirements
-- Keep to 2 pages
-- **Grounding Audit:** Before writing to disk, audit all tailored bullet points against the union of three sources: `01-FRAMEWORK/.claude/skills/job-application-assistant/01-candidate-profile.md` + the master CV (`04-APPLICATIONS/cv/main_example.tex`) + `01-FRAMEWORK/CLAUDE.md`'s Candidate Profile section to verify that all dates, roles, and metrics match exactly (zero profile drift or fabrication).
+- Keep to `<CV_PAGE_LIMIT>` pages (2 pages only when no custom template is active)
+- **Grounding Audit:** Before writing to disk, audit all tailored bullet points against the union of three sources: `01-FRAMEWORK/.claude/skills/job-application-assistant/01-candidate-profile.md` + the master CV baseline (`04-APPLICATIONS/cv/main_example<CV_EXT>`) + `01-FRAMEWORK/CLAUDE.md`'s Candidate Profile section to verify that all dates, roles, and metrics match exactly (zero profile drift or fabrication).
 
 ### Cover Letter (`04-APPLICATIONS/cover_letters/cover_<company>_<role><COVER_EXT>`)
 - **Match the language of the job posting** (Danish posting -> Danish cover letter, English posting -> English cover letter)
@@ -97,7 +98,7 @@ Also read the most recent existing CV and cover letter files for concrete struct
 - Use the `cover.cls` template
 - Tailor the opening paragraph to the specific role and company
 - Address to a named person if available in the posting, otherwise "Dear Hiring Manager" (or equivalent in posting language)
-- Keep to approximately one page
+- Keep to `<COVER_PAGE_LIMIT>` pages (1 page only when no custom template is active)
 - Any mention of agentic coding or AI tooling must reference **Claude Code** by name
 
 Write both files to disk. Keep the exact text of both drafts in working memory — you will pass them inline to the reviewer in Step 3 and revise them in Step 4 without re-reading.
@@ -210,37 +211,39 @@ After all edits are applied, the two files on disk are the final drafts.
 
 ### 5a. Compile
 
-Use `<CV_COMPILE>` and `<COVER_COMPILE>` resolved in Step 2 (the active template's declared compile command, or the stock defaults below if no custom template is active):
+**When a custom template is active** (detected in Step 2: `ACTIVE-TEMPLATE` block exists), use the values from that template's manifest. **When no custom template is active**, use the stock defaults below:
 
 ```bash
-cd cv && lualatex -interaction=nonstopmode main_<company>_<role>.tex
+cd 04-APPLICATIONS/cv && lualatex -interaction=nonstopmode main_<company>_<role>.tex
 cd ../cover_letters && xelatex -interaction=nonstopmode cover_<company>_<role>.tex
 ```
 
 - **Stock CV** uses **lualatex** — pdflatex fails on modern MiKTeX with fontawesome5 font-expansion errors. lualatex handles the same sources cleanly.
 - **Stock cover letter** uses **xelatex** — cover.cls requires fontspec.
-- **Custom template active:** run its declared `<CV_COMPILE>`/`<COVER_COMPILE>` command instead, substituting the actual filename for `<file>`. Never fall back to lualatex/xelatex when a custom template's compile command is a different toolchain (e.g. `typst compile`) — that command is what the manifest actually verified in `/add-template` Step 4.
+- **Custom template active:** run its declared `<CV_COMPILE>`/`<COVER_COMPILE>` command (from the manifest), substitute the actual filename for `<file>`, and use the manifest's declared `<CV_PDF_OUTPUT>`/`<COVER_PDF_OUTPUT>` paths and `<CV_PAGE_LIMIT>`/`<COVER_PAGE_LIMIT>` values for all downstream steps. Never fall back to lualatex/xelatex, `<file>.pdf`, or the stock 2/1-page limits when a custom template has declared different values — the manifest is what `/add-template` verified at registration time.
 
 If either compile fails, fix the error and re-compile until clean.
 
 ### 5b. Inspect layout
 
+**When a custom template is active**, use its manifest's declared `<CV_PDF_OUTPUT>` and `<CV_PAGE_LIMIT>` values. **When no custom template is active**, use the stock paths and limits below.
+
 Read both PDFs via the Read tool and verify:
 
-**CV (`04-APPLICATIONS/cv/main_<company>_<role>.pdf`):**
-- [ ] Exactly 2 pages (not 1, not 3)
+**CV (`<CV_PDF_OUTPUT>` from the active template manifest when one is registered; stock: `04-APPLICATIONS/cv/main_<company>_<role>.pdf`):**
+- [ ] Exactly `<CV_PAGE_LIMIT>` pages (stock: 2 pages; custom templates declare their own limits)
 - [ ] No orphaned `\cventry` titles — a job/education title line must never sit alone at the bottom of page 1 with its bullets on page 2. This is the most common failure.
 - [ ] Section headings are not isolated at the top of page 2 with only 1-2 lines below
 - [ ] No awkward whitespace gaps
 
-**Cover letter (`04-APPLICATIONS/cover_letters/cover_<company>_<role>.pdf`):**
-- [ ] Exactly 1 page
+**Cover letter (`<COVER_PDF_OUTPUT>` from the active template manifest when one is registered; stock: `04-APPLICATIONS/cover_letters/cover_<company>_<role>.pdf`):**
+- [ ] Exactly `<COVER_PAGE_LIMIT>` pages (stock: 1 page; custom templates declare their own limits)
 - [ ] Signature block visible, not cut off or pushed to a second page
 - [ ] Bullet list font matches surrounding body text (both should be Raleway-Medium)
 
 ### 5c. Iterate until clean
 
-If the layout has problems, edit the source files (`<CV_EXT>`/`<COVER_EXT>`) and recompile. Common fixes below are **LaTeX-specific** (stock templates, or a custom LaTeX template) — see `05-cv-templates.md` and `06-cover-letter-templates.md` for full details, and consult the active template's own manifest ("Known pitfalls") for a non-LaTeX toolchain:
+If the layout has problems, edit the source files (in the output directory, `main_<company>_<role><CV_EXT>` / `cover_<company>_<role><COVER_EXT>`) and recompile using the same `<CV_COMPILE>`/`<COVER_COMPILE>` commands from Step 5a. Common fixes below are **LaTeX-specific** (stock `.tex` templates, or a custom LaTeX template) — when a custom non-LaTeX template is active (`.typ`, etc.), consult its manifest's "Known pitfalls" section instead. For stock LaTeX templates, see `05-cv-templates.md` and `06-cover-letter-templates.md` for full details:
 
 - **Orphaned CV entry title:** `\usepackage{needspace}` in preamble, then `\needspace{5\baselineskip}` immediately before the problematic `\cventry`
 - **CV spills to page 3 with only a trailing section:** `\enlargethispage{2-3\baselineskip}` before a late section
@@ -311,7 +314,7 @@ List the files written:
 - `04-APPLICATIONS/cv/main_<company>_<role><CV_EXT>`
 - `04-APPLICATIONS/cover_letters/cover_<company>_<role><COVER_EXT>`
 
-Tell the user: "Both files are ready for your review. Open them to check the final output before compiling."
+Tell the user: "Both files are ready for your review. Open them to check the final output before submitting."
 
 ### Step 6b: Record the Application
 

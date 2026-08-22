@@ -62,7 +62,7 @@ Validate the cheap, local precondition before creating anything external. A run 
    | Company | rich text | |
    | Score | number | 0-100 from `rank_score` |
    | Verdict | select | Strong Fit / Good Fit / Moderate Fit / Weak Fit / Poor Fit |
-   | Status | select | `ranked` / `drafted` / `applied` / `interview` / `offer` / `hired` / `rejected` / `no_response` / `offer_declined` / `withdrawn` / `expired` — canonical tracker spellings per **Tracker status vocabulary** in `/outcome`; Notion options grow to match as values appear |
+   | Status | select | Tracker values use only the canonical **Tracker status vocabulary** in `/outcome`: `drafted` / `applied` / `interview` / `offer` / `hired` / `rejected` / `no_response` / `offer_declined` / `withdrawn`. **`ranked` and `expired` are scraper-state-only** (from `job_scraper/seen_jobs.json` only, never tracker CSV values) — do not confuse scraper rank state with application progress. Notion options grow to match values that appear. |
    | Fit | select | high / medium / low (scraper quick-fit) |
    | Deadline | date | tracker `deadline` column, falling back to `seen_jobs.json`'s `deadline` when the row has none; omit when neither states one |
    | First seen | date | |
