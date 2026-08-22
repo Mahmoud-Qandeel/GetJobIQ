@@ -17,7 +17,7 @@ Follow these steps **in order**.
 
 ### List Mode
 
-Use Glob with `templates/**/TEMPLATE.md` to find registered templates. For each, read the manifest and print a table:
+Use Glob with `04-APPLICATIONS/templates/**/TEMPLATE.md` to find registered templates. For each, read the manifest and print a table:
 
 ```
 ## Registered Templates
@@ -34,7 +34,7 @@ A template is **active** if `05-cv-templates.md` (CV) or `06-cover-letter-templa
 If `$ARGUMENTS` contains `--use <name>`:
 
 1. If `<name>` is `default`, skip template resolution and continue to Step 5 with `default` as the activation target.
-2. Use Glob with `templates/**/TEMPLATE.md` and find manifests whose parent folder name exactly matches `<name>`.
+2. Use Glob with `04-APPLICATIONS/templates/**/TEMPLATE.md` and find manifests whose parent folder name exactly matches `<name>`.
 3. If no manifest matches, stop and say the template is not registered. Suggest `/add-template --list` to see available names.
 4. If more than one manifest matches, stop and list the matching manifest paths. Ask the user to rename one of the templates; activation must be unambiguous.
 5. Read the matching `TEMPLATE.md` and extract:
@@ -47,8 +47,8 @@ If `$ARGUMENTS` contains `--use <name>`:
    - **Fonts:** the full font summary line
 6. Derive the template folder from the manifest path and verify `template<source-extension>` exists in the same folder. If it is missing, stop with an error; the template registration is incomplete.
 7. Derive `<type>` for Step 5 from the manifest path:
-   - `templates/cv/<name>/TEMPLATE.md` -> `cv`
-   - `templates/cover_letters/<name>/TEMPLATE.md` -> `cover_letters`
+   - `04-APPLICATIONS/templates/cv/<name>/TEMPLATE.md` -> `cv`
+   - `04-APPLICATIONS/templates/cover_letters/<name>/TEMPLATE.md` -> `cover_letters`
 8. Continue to Step 5 using the resolved `<name>`, `<type>`, `<source-extension>`, `<compile-command>`, engine/toolchain label, font summary, page limit, template skeleton path, and manifest path. Do not re-run Steps 1-4; `--use` switches an already-registered template.
 
 ---
@@ -92,8 +92,8 @@ Collect:
 
 Create the template folder:
 
-- CV: `templates/cv/<name>/`
-- Cover letter: `templates/cover_letters/<name>/`
+- CV: `04-APPLICATIONS/templates/cv/<name>/`
+- Cover letter: `04-APPLICATIONS/templates/cover_letters/<name>/`
 
 Write into it:
 
@@ -136,7 +136,7 @@ Never register a template without a successful test compile. Templates that "loo
 1. Copy `template<source-extension>` to a scratch file in the same folder (e.g. `_compile_test.tex` or `_compile_test.typ`) and fill every `[PLACEHOLDER]` with realistic dummy data (name, contact line, one education entry, one job entry with 3 bullets — enough content to exercise the layout).
 2. Compile with the declared compile command, substituting `_compile_test` for `<file>`:
    ```bash
-   cd templates/<type>/<name> && <declared compile command with <file> -> _compile_test>
+   cd 04-APPLICATIONS/templates/<type>/<name> && <declared compile command with <file> -> _compile_test>
    ```
 3. If the compile fails: show the user the relevant error lines, diagnose (missing font file, wrong engine/command, missing class or package), fix what you can (e.g. font path values), and re-compile. If the fix needs input only the user has (a missing font file, a license-restricted class), ask for it and wait.
 4. On success, confirm a PDF was produced and Read it to check the layout renders sensibly (no overlapping text, fonts loaded, page count matches the declared page limit for the dummy content). Record any surprises in the manifest's "Known pitfalls".
@@ -160,8 +160,8 @@ Insert (or replace, if one exists) this block immediately after the file's H1 ti
 >
 > A custom template is active. Where this block conflicts with the stock guidance below, this block wins. Structural advice below (tailoring, page-budget, cutting rules) still applies.
 >
-> - **Template skeleton:** `templates/<type>/<name>/template<source-extension>` — use this as the structural reference instead of the stock template
-> - **Manifest:** `templates/<type>/<name>/TEMPLATE.md` — read this for style rules and known pitfalls before drafting
+> - **Template skeleton:** `04-APPLICATIONS/templates/<type>/<name>/template<source-extension>` — use this as the structural reference instead of the stock template
+> - **Manifest:** `04-APPLICATIONS/templates/<type>/<name>/TEMPLATE.md` — read this for style rules and known pitfalls before drafting
 > - **Source extension:** `<source-extension>` (not `.tex` unless the template's own toolchain is LaTeX)
 > - **Compile command:** `<the full declared command>` (not the command named in the stock guidance below — `/apply`'s compile step must use this instead)
 > - **Fonts:** <font summary, including any path note for bundled fonts>
@@ -186,7 +186,7 @@ Present a summary:
 
 > **Template `<name>` registered and activated.**
 >
-> - Files: `templates/<type>/<name>/` (skeleton, manifest<, class/package files><, fonts>)
+> - Files: `04-APPLICATIONS/templates/<type>/<name>/` (skeleton, manifest<, class/package files><, fonts>)
 > - Test compile: passed with `<compile command>` (<N> page(s))
 > - `/apply` will now draft <CVs | cover letters> from this template.
 >
