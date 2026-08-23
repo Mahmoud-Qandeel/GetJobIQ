@@ -1,9 +1,9 @@
 # GetJobIQ
 
 <p align="center">
-  <a href="https://sp-tc.com" target="_blank"><img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="160" /></a>
+  <a href="https://sp-tc.com" target="_blank" rel="noopener noreferrer"><img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="160" /></a>
   <br/>
-  تم إنشاؤه بواسطة <a href="https://github.com/Mahmoud-Qandeel">Mahmoud Qandeel</a> · <a href="https://sp-tc.com" target="_blank">Space Technology Solutions</a>
+  تم إنشاؤه بواسطة <a href="https://github.com/Mahmoud-Qandeel">Mahmoud Qandeel</a> · <a href="https://sp-tc.com" target="_blank" rel="noopener noreferrer">Space Technology Solutions</a>
 </p>
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -206,6 +206,6 @@ MIT, see [LICENSE](LICENSE).
 
 ---
 
-**Mahmoud Qandeel** — Founder & CEO at <a href="https://sp-tc.com" target="_blank">Space Technology Solutions</a>
+**Mahmoud Qandeel** — Founder & CEO at <a href="https://sp-tc.com" target="_blank" rel="noopener noreferrer">Space Technology Solutions</a>
 
 GitHub: [@Mahmoud-Qandeel](https://github.com/Mahmoud-Qandeel)
