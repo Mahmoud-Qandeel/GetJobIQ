@@ -1,5 +1,15 @@
 # GetJobIQ
 
+<p align="center">
+  <img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="160" />
+  <br/>
+  تم إنشاؤه بواسطة <a href="https://github.com/Mahmoud-Qandeel">Mahmoud Qandeel</a> · Space Technology Solutions
+</p>
+
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+![Bun](https://img.shields.io/badge/requires-bun-fbf0df)
+
 [English](README.md) | **[العربية](README.ar.md)**
 
 قيّم الوظائف مقابل ملفك الشخصي، وابدأ بصياغة سيرة ذاتية ورسالة تغطية مخصصة، وتتبع كل طلب توظيف، واستعد للمقابلات — كل ذلك عبر أوامر شرطة (slash commands) تعمل على ملفات عادية داخل مشروعك.
@@ -25,6 +35,11 @@
 **التأسيس الواقعي، وليس الاختلاق.** تعتمد عملية الصياغة فقط على ما يوجد فعلاً في ملف المرشح. إذا كانت الوظيفة تتطلب مهارة لا تملكها، تعترف السيرة الذاتية بالفجوة وتبرز الخبرة المجاورة بدلاً من ذلك. يحدد وكيل المراجعة أي ادعاء لا يتطابق مع خلفيتك الموثقة، ويمنع العملية من المضي قدماً حتى تصبح منسجمة مع الواقع. يظل سجل إنجازاتك صادقًا.
 
 **مبني للاستخدام الواقعي، وليس مسرحية الأتمتة.** تم تصميم سير العمل حول القرارات والخطوات اليدوية التي تقوم بها فعليًا — جلب الإعلان الكامل، المراجعة قبل التقديم، متابعة أصحاب العمل. كل خطوة تضيف قيمة دون الادعاء بأن الكمبيوتر يمكنه الحكم بدلاً منك.
+
+```mermaid
+flowchart LR
+    A["/setup"] --> B["/scrape"] --> C["/apply"] --> D["manual submit"] --> E["/outcome"] --> F["/interview"]
+```
 
 ## ماذا يفعل
 
@@ -188,3 +203,9 @@ job_scraper/
 ## الترخيص
 
 MIT, see [LICENSE](LICENSE).
+
+---
+
+**Mahmoud Qandeel** — Founder & CEO at Space Technology Solutions
+
+GitHub: [@Mahmoud-Qandeel](https://github.com/Mahmoud-Qandeel)

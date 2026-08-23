@@ -1,5 +1,15 @@
 # GetJobIQ
 
+<p align="center">
+  <img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="160" />
+  <br/>
+  Built by <a href="https://github.com/Mahmoud-Qandeel">Mahmoud Qandeel</a> · Space Technology Solutions
+</p>
+
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+![Bun](https://img.shields.io/badge/requires-bun-fbf0df)
+
 **[English](README.md)** | [العربية](README.ar.md)
 
 Evaluate job postings against your profile, draft a tailored CV and cover letter, track every application, and prep for interviews—all as slash commands that operate on plain files in your project.
@@ -25,6 +35,11 @@ This framework prioritizes three principles:
 **Factual Grounding, not fabrication.** The drafting process only uses what's actually in your candidate profile. If a posting requires a skill you don't have, the CV acknowledges the gap and frames adjacent experience instead. The reviewer agent flags any claim that doesn't match your documented background, and the process refuses to proceed until it's grounded. Your track record stays honest.
 
 **Built for real use, not automation theater.** The workflow is designed around the actual decision-making and manual steps you do anyway — fetching the full posting, reviewing before submitting, following up with employers. Each step adds value without pretending the computer can do your judgment for you.
+
+```mermaid
+flowchart LR
+    A["/setup"] --> B["/scrape"] --> C["/apply"] --> D["manual submit"] --> E["/outcome"] --> F["/interview"]
+```
 
 ## What it does
 
@@ -188,3 +203,9 @@ Or keep the repository private.
 ## License
 
 MIT, see [LICENSE](LICENSE).
+
+---
+
+**Mahmoud Qandeel** — Founder & CEO at Space Technology Solutions
+
+GitHub: [@Mahmoud-Qandeel](https://github.com/Mahmoud-Qandeel)
