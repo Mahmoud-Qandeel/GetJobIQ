@@ -1,5 +1,7 @@
 # GetJobIQ
 
+**[English](README.md)** | [العربية](README.ar.md)
+
 Evaluate job postings against your profile, draft a tailored CV and cover letter, track every application, and prep for interviews—all as slash commands that operate on plain files in your project.
 
 **This version is project-scoped:** you copy the entire folder structure into your project, and paths are fixed relative to that root. A portable, agent-wide skill mode is planned for later.
@@ -71,6 +73,8 @@ This framework prioritizes three principles:
    - Or answer the guided interview questions
 
    `/setup` populates all the profile files automatically—nothing needs to be hand-edited first.
+
+   Tip: install Bun before your first `/scrape` for best results; see the Requirements callout above for why the portal CLIs are noticeably stronger than WebSearch fallback.
 
 4. **Paste a job posting and run `/apply`** to see the workflow end to end.
 
@@ -148,6 +152,9 @@ job_scraper/
 - **LaTeX** — `lualatex` (for compiling the default CV template) and `xelatex` (for the default cover letter template); required only if you use the stock LaTeX templates. Custom templates registered via `/add-template` can use Typst, Markdown, or another toolchain instead.
 - **`pdftotext` (poppler)** — optional, used only in `/apply` Step 5d for ATS text-layer verification; gracefully skipped if not installed
 - **Python** — optional, used only for the salary-lookup benchmark in `/apply` Step 1 (`python 01-FRAMEWORK/salary_lookup.py`); skipped if not configured
+
+> ⚠️ **Install Bun for best `/scrape` results.** Without it, portal CLIs (LinkedIn, Jobindex, etc.) can't run, and `/scrape` falls back to WebSearch — which returns fewer results and misses listings the CLIs would have found. Install with:
+> `curl -fsSL https://bun.sh/install | bash`
 
 ## Custom Templates
 
