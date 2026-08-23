@@ -35,9 +35,13 @@ These match your strongest and most desired career direction.
 
 ```
 site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_1]" remote
 site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
+site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_2]" remote
 site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" [YOUR_CITY]
+site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" remote
 site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_COUNTRY]
+site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" remote
 ```
 
 ### Priority 2: [YOUR_DOMAIN_EXPERTISE]
@@ -46,8 +50,11 @@ These match your domain expertise.
 
 ```
 site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
+site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] remote
 site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] [YOUR_COUNTRY]
+site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] remote
 site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] [YOUR_COUNTRY]
+site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] remote
 ```
 
 ### Priority 3: [YOUR_ADJACENT_ROLE_TYPE]
@@ -56,7 +63,9 @@ Adjacent roles you could pivot into.
 
 ```
 site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] remote
 site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] remote
 ```
 
 ### Priority 4: Broader Technical / Consulting
@@ -65,8 +74,10 @@ Wider net for general technical roles.
 
 ```
 site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
+site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer remote
 site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" remote
+site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN]
 ```
 
 ### jobs.ps WebSearch fallback (all priorities)
@@ -76,37 +87,54 @@ Use these site-specific WebSearch queries as a fallback-only source for the Pale
 **Priority 1 (Primary Role Type):**
 ```
 site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1]" remote
 site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
+site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2]" remote
 site:jobs.ps "[YOUR_KEY_SKILL]" [YOUR_CITY]
+site:jobs.ps "[YOUR_KEY_SKILL]" remote
 site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1_AR]" [YOUR_CITY]
+site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1_AR]" "عن بعد"
 site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2_AR]" [YOUR_CITY]
+site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2_AR]" "عن بعد"
 ```
 
 **Priority 2 (Domain Expertise):**
 ```
 site:jobs.ps [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY]
+site:jobs.ps [YOUR_DOMAIN_KEYWORD_1] remote
 site:jobs.ps [YOUR_DOMAIN_KEYWORD_2] [YOUR_CITY]
+site:jobs.ps [YOUR_DOMAIN_KEYWORD_2] remote
 site:jobs.ps [YOUR_DOMAIN_KEYWORD_1_AR] [YOUR_CITY]
+site:jobs.ps [YOUR_DOMAIN_KEYWORD_1_AR] "عن بعد"
 site:jobs.ps [YOUR_DOMAIN_KEYWORD_2_AR] [YOUR_CITY]
+site:jobs.ps [YOUR_DOMAIN_KEYWORD_2_AR] "عن بعد"
 ```
 
 **Priority 3 (Adjacent Role Type):**
 ```
 site:jobs.ps "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:jobs.ps "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] remote
 site:jobs.ps "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:jobs.ps "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] remote
 site:jobs.ps "[YOUR_ADJACENT_TITLE_1_AR]" [YOUR_KEY_SKILL_AR] [YOUR_CITY]
+site:jobs.ps "[YOUR_ADJACENT_TITLE_1_AR]" [YOUR_KEY_SKILL_AR] "عن بعد"
 site:jobs.ps "[YOUR_ADJACENT_TITLE_2_AR]" [YOUR_KEY_SKILL_AR] [YOUR_CITY]
+site:jobs.ps "[YOUR_ADJACENT_TITLE_2_AR]" [YOUR_KEY_SKILL_AR] "عن بعد"
 ```
 
 **Priority 4 (Broader Technical):**
 ```
 site:jobs.ps [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:jobs.ps "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+site:jobs.ps [YOUR_KEY_SKILL] developer remote
+site:jobs.ps "technical consultant" [YOUR_DOMAIN]
 site:jobs.ps [YOUR_KEY_SKILL_AR] "مطور" [YOUR_CITY]
-site:jobs.ps "استشاري تقني" [YOUR_DOMAIN_AR] [YOUR_CITY]
+site:jobs.ps [YOUR_KEY_SKILL_AR] "مطور" "عن بعد"
+site:jobs.ps "استشاري تقني" [YOUR_DOMAIN_AR]
 ```
 
 ## Location Filter
+
+**Evaluation-time filter (not query-time).** The queries above search both local and remote variants to ensure remote-eligible postings aren't excluded from the candidate pool before evaluation ever runs. The actual commute/relocation judgment happens when you (or `/rank`) evaluate results:
 
 When evaluating results, verify the job location is within reasonable commute distance from your home. Define acceptable areas:
 - [YOUR_CITY] and surrounding areas
@@ -114,6 +142,8 @@ When evaluating results, verify the job location is within reasonable commute di
 - [ACCEPTABLE_AREA_2]
 - [BORDERLINE_AREA] (borderline - ~X min by transit)
 - [TOO_FAR_AREA] (too far)
+
+Remote postings are always in scope for this evaluation — they bypass the geographic distance check and only need to pass the "remote acceptable to you?" criterion from your constraints above.
 
 ## Language Filter
 

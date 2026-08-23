@@ -270,7 +270,7 @@
 
     1. **Never fabricate job postings.** Only present jobs from actual CLI search/detail output or WebSearch/WebFetch results.
     2. **Respect deduplication.** Always check seen_jobs.json AND job_search_tracker.csv before presenting.
-    3. **Focus on configured geographic area.** Skip jobs that require relocation or are clearly outside commute range.
+    3. **Focus on configured geographic area (evaluation-time filter).** When evaluating retrieved results, skip jobs that require relocation or are clearly outside commute range. Remote postings are not skipped — they are evaluated against your remote-work constraints. (Note: search queries themselves search both local and remote variants to avoid excluding remote-eligible postings before evaluation runs.)
     4. **Only open positions.** Skip postings with expired deadlines or those marked as closed.
     5. **Be efficient with detail fetches.** Don't run `detail` or WebFetch on every search hit — pre-filter by title/snippet, then fetch only promising matches.
     6. **Parallel searches.** Run portal CLI searches in parallel; use WebSearch only for gaps the CLIs don't cover.
