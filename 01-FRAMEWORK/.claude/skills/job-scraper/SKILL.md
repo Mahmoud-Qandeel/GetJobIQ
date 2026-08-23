@@ -228,13 +228,23 @@ health: <portal-name> - broken (0 results for the SKILL.md test query and a broa
 |---|-----|-------|---------|----------|----------|-----|
 | 1 | High | ... | ... | ... | ... | [Link](...) |
 
-If Step 2.5 flagged a mass-posting pattern, note it in the Title cell (e.g. "Frontend Developer (posted in 6 cities)") rather than burying it. Do the same for a declared-language-insufficient-level flag from the Language Gate (e.g. "Backend Engineer ⚠ fluent English required") - both are signals the user should see at a glance, not just in the detail highlights below.
+**Inline flags in the table:**
+- If Step 2.5 flagged a mass-posting pattern, note it in the Title cell (e.g. "Frontend Developer (posted in 6 cities)") rather than burying it.
+- For a declared-language-insufficient-level flag from the Language Gate, add to the Title cell (e.g. "Backend Engineer ⚠ fluent English required").
+- **For remote locations from US/EU-based companies/portals:** when a job's Location field would otherwise read as "Remote", "Fully remote", "Multi-timezone", or similar unqualified remote language, display it as **"Remote ⚠ (verify eligibility)"** instead. This conservative flag surfaces the fact that work-authorization/sponsorship eligibility was not confirmed in the summary snippet and must be verified in the full posting via `/apply` Step 0. Apply this flag to all fit levels, not just high matches.
+
+All these flags are signals the user should see at a glance when scanning the table, not buried in the detail highlights below.
 
 ### High-Match Highlights
 For each high-match job, add 2-3 bullet points:
 - Why it matches your profile
 - Key requirements to check
 - Any red flags (including mass-posting signals from Step 2.5)
+
+**Eligibility flag rule:** If the job was flagged with "Remote ⚠ (verify eligibility)" in the Location column, always add an explicit bullet to these highlights:
+- "⚠️ **Eligibility check needed** — verify work authorization & sponsorship eligibility before investing time in application"
+
+This ensures the eligibility concern is impossible to miss when scanning the highlights, not just embedded in the table Location cell.
 
 ### Contacts
 For each high/medium-fit job from Step 4.5, add a short contacts block with the two
