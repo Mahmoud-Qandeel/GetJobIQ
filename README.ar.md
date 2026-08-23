@@ -1,7 +1,7 @@
 # GetJobIQ
 
 <p align="center">
-  <a href="https://sp-tc.com" rel="noopener noreferrer" target="_blank" ><img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="160" /></a>
+  <a href="https://sp-tc.com" rel="noopener noreferrer" target="_blank" ><img src="assets/space-tech-logo.png" alt="Space Technology Solutions" width="400" /></a>
   <br/>
   تم إنشاؤه بواسطة <a href="https://github.com/Mahmoud-Qandeel">Mahmoud Qandeel</a> · <a href="https://sp-tc.com" rel="noopener noreferrer" target="_blank" >Space Technology Solutions</a>
 </p>
