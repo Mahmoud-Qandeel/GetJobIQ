@@ -4,6 +4,26 @@ Evaluate job postings against your profile, draft a tailored CV and cover letter
 
 **This version is project-scoped:** you copy the entire folder structure into your project, and paths are fixed relative to that root. A portable, agent-wide skill mode is planned for later.
 
+## Verified in Practice
+
+This workflow has been tested end-to-end on a real application: **Senior iOS Developer (Esti team)** at **Prequel**, submitted 2026-08-23, currently awaiting response. The test exercised:
+- Draft detection (Step 0.5): fresh application, no conflicts
+- The .tex-review pause (Step 4.5): workflow paused and waited for confirmation before compiling
+- The closing message: rendered correctly with no auto-submit, directed to `/outcome` for status updates
+- **Factual Grounding audit:** the CV and cover letter correctly acknowledged gaps rather than fabricating skills — even though the posting required StoreKit 2 and Structured Concurrency experience, those claims were omitted from the drafts (the candidate's real profile supports SwiftUI only), with those gaps noted in the cover letter instead
+
+This is not a marketing claim or a success story — it's a verification that the workflow works as designed on real input, without inventing facts.
+
+## Why GetJobIQ
+
+This framework prioritizes three principles:
+
+**Human stays in the loop.** There are no automated submissions. `/apply` stops and asks for explicit confirmation when a posting's location requirement conflicts with your declared constraints — ensuring logistics aren't silently overridden by an otherwise-strong fit score. Before compiling the PDF, the workflow pauses for your review of the LaTeX source. The closing message points you to the employer's portal for manual submission, then `/outcome` to update your tracker.
+
+**Factual Grounding, not fabrication.** The drafting process only uses what's actually in your candidate profile. If a posting requires a skill you don't have, the CV acknowledges the gap and frames adjacent experience instead. The reviewer agent flags any claim that doesn't match your documented background, and the process refuses to proceed until it's grounded. Your track record stays honest.
+
+**Built for real use, not automation theater.** The workflow is designed around the actual decision-making and manual steps you do anyway — fetching the full posting, reviewing before submitting, following up with employers. Each step adds value without pretending the computer can do your judgment for you.
+
 ## What it does
 
 | Command | Purpose |
@@ -23,6 +43,8 @@ Evaluate job postings against your profile, draft a tailored CV and cover letter
 | `/html-report` | Generate a self-contained dashboard from your tracker and application archive |
 | `/upskill` | Analyze your tracked jobs to identify skill gaps and generate a learning plan |
 
+**Multi-language by design:** Candidate profiles and search queries support multiple languages natively. Your profile's Languages table declares every language you work in; `/scrape` automatically generates search queries in each declared language, and the framework's evaluation gates handle bilingual postings correctly without translation steps.
+
 ## Key Workflow Behaviors
 
 - **No automatic submission:** `/apply` drafts and archives your CV and cover letter, records them in the tracker as `drafted`, and displays the job posting URL — but does not submit the application. You submit manually via the employer's portal, then run `/outcome` to update the tracker to `applied`.
@@ -30,6 +52,8 @@ Evaluate job postings against your profile, draft a tailored CV and cover letter
 - **Location conflict checkpoint:** When `/apply` Step 1 detects that a posting's location requirement conflicts with your declared constraint (e.g., on-site in a location you've marked as too far, or vice versa), the workflow stops and asks for explicit confirmation before drafting. This ensures location logistics aren't silently overridden by an otherwise-strong fit score.
 
 - **Eligibility flags in /scrape results:** Remote postings from US/EU-based sources where work-authorization or sponsorship eligibility wasn't confirmed in the summary are flagged as "Remote ⚠ (verify eligibility)" in the results table and in highlights. This signals that eligibility must be verified in the full posting during `/apply` Step 0 before investing time.
+
+- **Draft detection:** Re-running `/apply` on a company/role that already has a draft on disk doesn't silently overwrite it. The workflow detects the existing files and asks whether to re-draft from scratch, resume from the existing draft (skip straight to compile), or cancel.
 
 ## Installation
 
