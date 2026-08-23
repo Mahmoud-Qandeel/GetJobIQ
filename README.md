@@ -23,6 +23,14 @@ Evaluate job postings against your profile, draft a tailored CV and cover letter
 | `/html-report` | Generate a self-contained dashboard from your tracker and application archive |
 | `/upskill` | Analyze your tracked jobs to identify skill gaps and generate a learning plan |
 
+## Key Workflow Behaviors
+
+- **No automatic submission:** `/apply` drafts and archives your CV and cover letter, records them in the tracker as `drafted`, and displays the job posting URL — but does not submit the application. You submit manually via the employer's portal, then run `/outcome` to update the tracker to `applied`.
+
+- **Location conflict checkpoint:** When `/apply` Step 1 detects that a posting's location requirement conflicts with your declared constraint (e.g., on-site in a location you've marked as too far, or vice versa), the workflow stops and asks for explicit confirmation before drafting. This ensures location logistics aren't silently overridden by an otherwise-strong fit score.
+
+- **Eligibility flags in /scrape results:** Remote postings from US/EU-based sources where work-authorization or sponsorship eligibility wasn't confirmed in the summary are flagged as "Remote ⚠ (verify eligibility)" in the results table and in highlights. This signals that eligibility must be verified in the full posting during `/apply` Step 0 before investing time.
+
 ## Installation
 
 1. **Copy these folders to your project root**, preserving the layout:
