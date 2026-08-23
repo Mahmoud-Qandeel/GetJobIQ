@@ -78,7 +78,20 @@ Present the evaluation to the user with:
 4. **Salary benchmark** - salary index for the company (if available)
 5. **Overall fit score** and recommendation (strong fit / moderate fit / weak fit)
 
-After presenting the evaluation, ask the user:
+### Location Conflict Checkpoint
+
+**If the Location dimension shows FAIL or FLAG**, stop here before asking about drafting. The location match is a binary logistics question independent of overall fit score. Present the exact conflict:
+
+> **Location conflict:** [posting requirement] vs. your declared constraint ([candidate's location/remote preference from profile]).
+
+Then ask explicitly:
+> "Do you want to proceed with drafting anyway (e.g., if remote work might be negotiable, or you're open to relocation for the right role), or stop here and skip this posting?"
+
+**If the user declines (wants to stop), end the workflow cleanly for this posting — do not draft anything.** If they confirm (want to proceed), continue to Step 2.
+
+### Proceed with Drafting (No Location Conflict)
+
+**If the Location dimension shows PASS**, or if the user has confirmed they want to proceed despite a location flag, ask the user:
 > "Should I proceed with drafting the CV and cover letter for this role?"
 
 **If the user says no, stop here.** If yes, continue to Step 2.
