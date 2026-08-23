@@ -80,57 +80,13 @@ site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" remote
 site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN]
 ```
 
-### jobs.ps WebSearch fallback (all priorities)
+### jobs.ps — Not Integrated via /scrape (Manual Only)
 
-Use these site-specific WebSearch queries as a fallback-only source for the Palestinian job market (no dedicated CLI or API). Cover the same priority categories as above, with full bilingual support. Translate role titles to match your target roles in both English and Arabic.
+**jobs.ps is protected by Cloudflare, which blocks automated/non-browser access.** Confirmed: direct fetch returns HTTP 403 Cloudflare challenge; WebSearch `site:` queries return zero results. The site works normally for human browsing.
 
-**Priority 1 (Primary Role Type):**
-```
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1]" remote
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2]" remote
-site:jobs.ps "[YOUR_KEY_SKILL]" [YOUR_CITY]
-site:jobs.ps "[YOUR_KEY_SKILL]" remote
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1_AR]" [YOUR_CITY]
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_1_AR]" "عن بعد"
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2_AR]" [YOUR_CITY]
-site:jobs.ps "[YOUR_PRIMARY_JOB_TITLE_2_AR]" "عن بعد"
-```
+**Current path:** If you find a relevant posting on jobs.ps, paste the URL or text directly into `/apply` — no /scrape integration needed for that path.
 
-**Priority 2 (Domain Expertise):**
-```
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY]
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_1] remote
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_2] [YOUR_CITY]
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_2] remote
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_1_AR] [YOUR_CITY]
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_1_AR] "عن بعد"
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_2_AR] [YOUR_CITY]
-site:jobs.ps [YOUR_DOMAIN_KEYWORD_2_AR] "عن بعد"
-```
-
-**Priority 3 (Adjacent Role Type):**
-```
-site:jobs.ps "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:jobs.ps "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] remote
-site:jobs.ps "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:jobs.ps "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] remote
-site:jobs.ps "[YOUR_ADJACENT_TITLE_1_AR]" [YOUR_KEY_SKILL_AR] [YOUR_CITY]
-site:jobs.ps "[YOUR_ADJACENT_TITLE_1_AR]" [YOUR_KEY_SKILL_AR] "عن بعد"
-site:jobs.ps "[YOUR_ADJACENT_TITLE_2_AR]" [YOUR_KEY_SKILL_AR] [YOUR_CITY]
-site:jobs.ps "[YOUR_ADJACENT_TITLE_2_AR]" [YOUR_KEY_SKILL_AR] "عن بعد"
-```
-
-**Priority 4 (Broader Technical):**
-```
-site:jobs.ps [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:jobs.ps [YOUR_KEY_SKILL] developer remote
-site:jobs.ps "technical consultant" [YOUR_DOMAIN]
-site:jobs.ps [YOUR_KEY_SKILL_AR] "مطور" [YOUR_CITY]
-site:jobs.ps [YOUR_KEY_SKILL_AR] "مطور" "عن بعد"
-site:jobs.ps "استشاري تقني" [YOUR_DOMAIN_AR]
-```
+**Possible future integration:** jobs.ps offers official email job alerts (per their About page). These could potentially be routed through the existing `/gmail-sync` command instead of scraping — not built yet, noted here for future reference if this becomes worth the setup effort.
 
 ## Location Filter
 
