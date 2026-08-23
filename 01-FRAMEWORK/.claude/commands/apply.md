@@ -421,6 +421,22 @@ Check whether the posting or the portal it came from asks for free-text fields t
 
 **Only on yes**, read `08-application-forms.md` and draft the fields per its rules, grounded against the same three-source union as the CV and cover letter. Save per that file's "Output format" section. **On no, or when the posting has no such fields, say nothing further and move on** — this is an optional addition and never changes the default two-document output.
 
-### Next Steps
-- **Submitted?** `/outcome <company>` moves the `drafted` row to `applied` and starts the per-application record that `/setup` later uses to calibrate the fit framework.
-- **Interview scheduled?** `/interview` builds a stage-specific prep pack from this posting and the documents you just created.
+---
+
+## Closing Message
+
+**Application drafting is complete.** Your CV and cover letter (both source files and PDFs) have been generated, reviewed, and archived alongside a tracker entry marked `drafted`.
+
+**Before submitting, please open and review both PDF files.** Automated checks verify page count and ATS text extraction, but only a visual review catches layout issues, orphaned headings, or content mismatches that slipped through.
+
+**Important:** This tool does **not** submit applications. You must complete the submission yourself on the employer's portal or careers site.
+
+To proceed:
+1. Open your generated PDF files and review them visually
+2. Navigate to the job posting URL below
+3. Submit your application through the employer's portal
+4. Once submitted, run `/outcome <company>` to update your tracker status from `drafted` to `applied`
+
+**Job posting URL:** [output the posting URL captured from `$ARGUMENTS` in Step 0, or state "No URL captured — posting was provided as text. Please navigate to the employer's careers site and find this role manually."]
+
+If you'd prefer to edit the source .tex files before submitting, run `/apply` for the same company/role again and choose "resume from existing draft" when prompted — you'll edit the files, compile, and continue from there.
